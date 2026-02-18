@@ -10,22 +10,29 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Carrega as variáveis do arquivo .env
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%s6u@+%p%fm@g#d-td6!g^g%68twbvvrzm_j8r89ppd52u0l2^'
+# Use os.environ.get(NOME, VALOR_PADRAO)
+SECRET_KEY = os.environ.get("SECRET_KEY", "chave-provisoria-de-dev")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Converte a string 'True' ou 'False' para Booleano
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 
 # Application definition
